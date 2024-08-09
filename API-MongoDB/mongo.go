@@ -1,4 +1,4 @@
-package apimongodb
+package main
 
 import (
 	"context"
@@ -23,6 +23,6 @@ func NewMongoStore() (*MongoClient, error) {
 	}
 
 	err = client.Ping(context.TODO(), nil)
-	
+
 	return &MongoClient{mongoClient: client}, err
 }

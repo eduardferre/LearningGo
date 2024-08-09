@@ -1,4 +1,4 @@
-package apimongodb
+package main
 
 import (
 	"log"
@@ -6,6 +6,8 @@ import (
 	// Gin API framework
 	"github.com/gin-gonic/gin"
 )
+
+const serverURI = "localhost:8080"
 
 var mongoClient *MongoClient
 
@@ -16,12 +18,18 @@ func init() {
 		log.Fatal("Could not connect to MongoDB")
 	}
 
-	log.Printf("Connected to MongoDB: %v", client)
+	log.Print("Connected to MongoDB")
 	mongoClient = client
 }
 
 func main() {
 	router := gin.Default()
 
-	router.Run("localhost:8080")
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "Hello World",
+		})
+	})
+
+	router.Run(serverURI)
 }
