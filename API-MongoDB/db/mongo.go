@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"context"
@@ -7,13 +7,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type MongoClient struct {
-	mongoClient *mongo.Client
-}
+const connectionString = "mongodb://localhost:27017"
 
-const connectionString = "mongodb://localhost:27017/test_mongo_go"
-
-func NewMongoStore() (*MongoClient, error) {
+func NewMongoStore() (*mongo.Client, error) {
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
 	opts := options.Client().ApplyURI(connectionString).SetServerAPIOptions(serverAPI)
 
@@ -23,6 +19,6 @@ func NewMongoStore() (*MongoClient, error) {
 	}
 
 	err = client.Ping(context.TODO(), nil)
-
-	return &MongoClient{mongoClient: client}, err
+	
+	return client, err
 }
