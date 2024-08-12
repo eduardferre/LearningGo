@@ -32,7 +32,7 @@ func main() {
 	router := gin.Default()
 
 	routes.AuthRoutes(router, mongoDb)
-	routes.StatusRoutes(router)
+	routes.HealthRoutes(router)
 
 	router.Run(serverURI)
 }
